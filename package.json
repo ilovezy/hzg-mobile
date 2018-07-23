@@ -1,7 +1,7 @@
 {
-  "name": "changfu-mobile",
+  "name": "hzg-mobile",
   "version": "1.0.0",
-  "description": "this is changfulicai mobile project",
+  "description": "this is hzg mobile project",
   "author": "ymjdev <ymj@tourongchangfu.com>",
   "private": true,
   "scripts": {
