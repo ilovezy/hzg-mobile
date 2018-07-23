@@ -1,0 +1,169 @@
+@import "../common/variables";
+@import "../common/mixins";
+.cell{
+  background-color: #fff;
+  position: relative;
+  z-index: 5;
+  margin-bottom: .3rem;
+  &:first-child{
+    margin-top: .3rem;
+  }
+  //&:before{
+  //  .top-line(@line-high-color);
+  //}
+  //&:after{
+  //  .bottom-line(@line-high-color);
+  //}
+  a.cell-item,
+  label.cell-item{
+    .tap-color(#fff, .96);
+  }
+}
+.cell-item{
+  display: flex;
+  position: relative;
+  padding-left: @body-padding-vertical;
+  overflow: hidden;
+  &:not(:last-child):after{
+    margin-left: @body-padding-vertical;
+    margin-right: @body-padding-vertical;
+    .bottom-line(@line-color);
+  }
+}
+.cell-left{
+  color: @cell-left-color;
+  font-size: @cell-left-fontsize;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+.cell-right{
+  flex: 1;
+  width: 100%;
+  min-height: @cell-height;
+  color: @cell-right-color;
+  text-align: right;
+  font-size: @cell-right-fontsize;
+  padding-right: @body-padding-vertical;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="time"]{
+    line-height: @cell-height;
+  }
+  input[type="radio"],
+  input[type="checkbox"]:not(.m-switch){
+    position: absolute;
+    left: -9999em;
+    & + .cell-radio-icon:after,
+    & + .cell-checkbox-icon:after{
+      font-family: @iconfont-inlay;
+      font-size: .44rem;
+    }
+    & + .cell-radio-icon:after,
+    & + .cell-checkbox-icon:after{
+      content: '\e604';
+      color: #d9d9d9;
+    }
+    &:checked{
+      & + .cell-radio-icon:after{
+        content: '\e608';
+        color: #d82d2d;
+      }
+      & + .cell-checkbox-icon:after{
+        color: #d82d2d;
+        content: '\e603';
+      }
+    }
+  }
+  &:active{
+    background: none; /* for firefox */
+  }
+}
+.cell-right{
+  input[type="text"],
+  input[type="number"],
+  input[type="datetime-local"],
+  input[type="date"],
+  input[type="time"],
+  input[type="tel"],
+  input[type="password"]{
+    flex: 1;
+    height: @cell-height;
+    border: none;
+    font-size: @cell-input-fontsize;
+    background: transparent;
+    color: @cell-input-color;
+    display: flex;
+    justify-content: flex-start;
+    text-align: left; /* fuck UC */
+  }
+  select{
+    flex: 1;
+    height: @cell-height;
+    border: none;
+    display: block;
+    color: @cell-select-color;
+    font-size: @cell-select-fontsize;
+    margin-left: -.08rem; /* 去除select默认缩进 */
+  }
+}
+.cell-icon{
+  display: block;
+  *{
+    &:before, &:after{
+      color: inherit;
+      font-size: @cell-icon-fontsize !important;
+      margin-right: .1rem;
+    }
+  }
+  img{
+    height: 0.4rem;
+    margin-right: .1rem;
+  }
+}
+.cell-arrow{
+  &:after{
+    margin-left: .05rem;
+    margin-right: -.08rem;
+    display: block;
+    font-family: @iconfont-inlay;
+    font-size: @cell-arrow-fontsize;
+    color: @cell-arrow-color;
+    content: '\e611';
+  }
+}
+.cell-title{
+  padding: 0 @body-padding-vertical .1rem;
+  font-size: @cell-title-fontsize;
+  text-align: left;
+  color: @cell-title-color;
+  position: relative;
+  z-index: 1;
+  //background-color: @body-bg;
+  //&:after{
+  //  .bottom-line(@line-color, 3);
+  //}
+}
+.btn-cell-special{
+  border: 0;
+  font-size: .28rem;
+  color: #D82D2D;
+}
+&.-disabled{
+  color: #ccc;
+}
+.cell-button{
+  padding: .3rem
+}
+.cell-protocol{
+  padding: .3rem .3rem 0;
+  color: #bbb
+}
+.cell-protocol a{
+  padding-left: .1rem;
+  color: #F9B841;
+  text-decoration: underline;
+}

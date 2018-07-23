@@ -1,0 +1,84 @@
+@import "../common/variables";
+.view{
+  margin: 0 auto;
+  max-width: @max-width;
+  min-width: @min-width;
+  &:before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: @navbar-height;
+  }
+  &:after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: @body-padding-bottom * 3;
+  }
+}
+.flexview{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: @max-width;
+  min-width: @min-width;
+  transition: all .3s cubic-bezier(.55, 0, .1, 1);
+}
+.scrollview{
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  &.not-android{
+    overflow-y: auto;
+  }
+  &:after{
+    content: '';
+    display: block;
+    width: 100%;
+    height: .2rem;
+  }
+}
+.ios .scrollview{
+  margin-top: 1px;
+}
+.hairline .scrollview{
+  margin-top: 0.5px;
+}
+.primary-nav{
+  .tabbar-icon{
+    font-size: .46rem;
+    line-height: 1;
+    .icon-home:before{
+      content: "\e6a1";
+    }
+    .icon-account:before{
+      content: "\e6a5";
+    }
+    .icon-integral:before{
+      content: "\e6a7";
+    }
+    .icon-product:before{
+      content: "\e659";
+    }
+  }
+  .router-link-active{
+    .icon-home:before{
+      content: "\e6a2";
+    }
+    .icon-product:before{
+      content: "\e658";
+    }
+    .icon-integral:before{
+      content: "\e6a8";
+    }
+    .icon-account:before{
+      content: "\e6a6";
+    }
+  }
+
+}

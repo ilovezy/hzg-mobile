@@ -1,0 +1,294 @@
+.invest-record
+  &.-special
+    position absolute
+    left 0
+    right 0
+    bottom 0
+    top 2.25rem
+    overflow-y: auto
+    overflow-scrolling: touch
+.invest-list
+  padding: .3rem .3rem 0
+.invest-item
+  margin-bottom .3rem
+  //&:last-child
+  //  margin-bottom 0
+  .invest-main
+    position: relative
+    background-color #fff
+    border-radius .1rem
+    border: 1px solid rgba(187, 187, 187, .3);
+    box-shadow: 0 .08rem .02rem 0 rgba(104, 104, 104, 0.1), 0 .02rem .04rem 0 rgba(0, 0, 0, 0.01), 0 .04rem .02rem 0 rgba(51, 51, 51, 0.1);
+  .project-number
+    height: 1rem
+    line-height 1rem
+    color #bbbbbb
+    font-size .24rem
+    padding 0 .6rem
+    white-space nowrap
+    border-bottom 1px dashed #eee
+    text-align: center;
+    &:before
+    &:after
+      content ''
+      display block
+      position: absolute
+      left: -.16rem
+      top: .82rem
+      width: .32rem
+      height: .32rem
+      border-radius: .32rem
+      background-color #f5f5f5
+      transform: rotate(90deg);
+      box-shadow: 0 .04rem .02rem 0 rgba(104, 104, 104, .1) inset;
+    &:after
+      left auto
+      right: -.16rem
+      transform: rotate(-90deg);
+  .project-info
+    position relative
+    padding: .4rem .6rem .6rem
+    &.-data
+      padding-bottom 2rem
+  .project-header
+    text-align: center
+    .project-title
+      font-size .34rem
+      font-weight normal
+      color #222
+    .project-progress
+      display block;
+      position relative
+      overflow hidden
+      margin .2rem auto
+      width 2.4rem
+      height .4rem
+      border: 1px solid #d82d2d
+      border-radius .2rem
+      color #fff
+      background-color #f6bfbf
+      &.-processing
+        background-color #fff
+        color #d82d2d
+      & .i-progress
+        position: absolute
+        z-index 2
+        top: 0
+        display block
+        width 100%
+        height: .4rem
+        background-color #d82d2d
+      & span
+        position absolute
+        z-index 3
+        left 0
+        right: 0
+        line-height .4rem
+        font-size .24rem
+      &.-failure
+        overflow inherit
+        border 1px solid #bbb
+        color #bbb
+        background-color transparent
+        & .i-progress
+          border-radius .2rem
+          background-color transparent
+        & .icon-question
+          position: absolute
+          right:  -.6rem
+          font-size .4rem
+          line-height .36rem
+          color #bbb
+        & .project-remarks
+          position absolute
+          left -1.8rem
+          top: .6rem
+          width 6rem
+          padding .2rem
+          text-align: left
+          background: #FFF;
+          box-shadow: 0 0 .08rem 0 rgba(102,102,102,0.41)
+          border-radius: .06rem
+          font-size: .22rem
+          color: #666
+          &:after
+            content ''
+            display block
+            position absolute
+            right: 1.3rem
+            top: -.1rem
+            width .2rem
+            height: .2rem
+            background-color #fff
+            box-shadow: 0 0 .08rem 0 rgba(102,102,102,0.41)
+            transform: rotate(45deg);
+          &:before
+            content ''
+            display block
+            position absolute
+            z-index 5
+            right: 1.2rem
+            top 0
+            width .4rem
+            height: .2rem
+            background-color #fff
+  .project-prop
+    padding-top .4rem
+    font-size .28rem
+    color #666
+    li
+      padding-top .1rem
+      padding-left 1.4rem
+      line-height .4rem
+      label
+        float: left;
+        width 1.4rem
+        margin-left -1.4rem
+      .-red
+        color #d82d2d
+      em
+        margin-left .1rem
+        font-size .24rem
+        color #bbb
+      & .-award
+        margin 0 .05rem
+        padding 0 .06rem
+        color #D82D2D
+        border-radius .1rem
+        border: 1px dashed #FACDCD
+    &.-gray
+      color #bbb
+  .project-data
+    position absolute
+    left 1px
+    bottom: 1px
+    right 1px
+    padding: .15rem .32rem
+    height: 1.4rem
+    background: #fafafa
+  .project-time
+    position: relative
+    margin 0 .78rem
+    &:before,
+    &:after
+      content ''
+      display block
+      overflow hidden
+      height .02rem
+      position absolute
+      z-index 1
+      width 100%
+      top .43rem
+      background-color #ddd
+    &:before
+      z-index 2
+      background-color #DC4646
+    &.-hold:before
+      width 70%
+    dl
+      position absolute
+      top: 0
+      width 1.5rem
+      font-size .24rem
+      text-align: center;
+      color #bbb
+      &:after
+        display block
+        position absolute
+        z-index 4
+        left 50%
+        top .39rem
+        margin-left -.05rem
+        width .1rem
+        height .1rem
+        background-color #fff
+        border: 1px solid #DC4646
+        border-radius .1rem
+        content ''
+      dd
+        padding-top .22rem
+        span
+          display block
+          font-size .2rem
+      &:nth-child(1)
+        left: -.78rem
+      &:nth-child(2)
+        left 35%
+        width 2rem
+        margin-left -1rem
+        & dd
+          height: .5rem
+          overflow hidden
+      &:nth-child(3)
+        right: -.78rem
+  .invest-control
+    display flex
+    width 100%
+    overflow hidden
+    height: 1rem
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 0 0 .1rem .1rem
+    & a
+      flex 1
+      display block
+      height 1rem
+      line-height 1rem
+      text-align: center
+      color #d82d2d
+      font-size .28rem
+      &:last-child
+        border-left: 1px solid #eee
+//.invest-footer
+//  position fixed
+//  z-index 500
+//  left 0
+//  right 0
+//  bottom: 0
+//  height: .8rem
+//  line-height .8rem
+//  padding 0 .3rem
+//  background-color #D82D2D
+//  color #fff
+//  display flex
+//  li
+//    flex 1
+//    white-space nowrap
+//  li:last-child
+//    text-align: right;
+.invests-total
+  display flex
+  position absolute
+  z-index 200
+  left 0
+  right 0
+  top .85rem
+  height: 1.4rem
+  background-color #fff
+  color #666
+  border-top 1px solid #f5f5f5
+  & dl
+    flex 1
+    padding-left 1.3rem
+    padding-top .36rem
+    background-repeat no-repeat
+    background-position .6rem .45rem
+    background-size .52rem .52rem
+    & dt
+      font-size .22rem
+      color #bbb
+    & dd
+      font-size .28rem
+      white-space nowrap
+  &.-hold dl
+    &:nth-child(1)
+      background-image url("/static/images/account/icon_invest_record_a.png")
+    &:nth-child(2)
+      background-image url("/static/images/account/icon_invest_record_b.png")
+  &.-repay dl
+    &:nth-child(1)
+      background-image url("/static/images/account/icon_invest_record_c.png")
+    &:nth-child(2)
+      background-image url("/static/images/account/icon_invest_record_d.png")
+  &.-appdown
+    top: 1.6rem

@@ -1,0 +1,137 @@
+//关于我们
+.about-us
+  line-height: 1.8
+  margin-bottom: -.2rem
+  & h2
+    text-align: center
+    font-size: .32rem
+    color: #ff4c3b
+    font-weight: normal
+  & h3
+    color: #666
+    font-size: .28rem
+    font-weight: normal
+  & p
+    font-size: .28rem
+    color: #999
+  .about-box
+    overflow: hidden
+    padding: .3rem
+    &.bg-white
+      background-color: white
+//文章列表
+.article-list
+  position: relative
+  padding: 0 0 0 .6rem
+.article-item
+  position: relative
+  margin: .8rem .3rem .3rem 0
+  padding: .2rem
+  border: .01rem solid #e6e6e6
+  background-color: #fff
+  border-radius: .08rem
+  font-size .28rem
+  &:before
+    content ''
+    width 1px
+    background-color #e6e6e6
+    display block
+    position: absolute
+    left: -.2rem;
+    top: -.8rem;
+    bottom: -.3rem;
+  & time
+    position: absolute
+    top: -.46rem
+    left: -.2rem
+    padding-left: .2rem
+    color: #666
+    font-size .24rem
+    &:before
+      position: absolute
+      left: -.075rem
+      top: .07rem
+      z-index: 2
+      content: ''
+      width: .16rem
+      height: .16rem
+      border-radius: .16rem
+      border: .04rem solid #bbb
+      background-color #ffffff
+  & h2
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: normal
+    color #333
+  .note
+    padding-top: .15rem
+    color: #666
+
+  &.-message
+    & time
+      &:before
+        border-color #d82d2d
+    & .note
+      overflow hidden
+      display: -webkit-box;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      height .55rem
+      line-height .4rem
+    &.-read
+      & time
+        &:before
+          border-color #bbb
+      & h2
+        color #666
+    &.-toggle
+
+      & .note
+        overflow auto
+        height: auto
+        -webkit-line-clamp: 20
+//文章详情
+.article-detail
+  padding: .3rem
+  margin-bottom -.2rem
+.article-header
+  border-bottom: 1px solid #eee
+  & h1
+    font-size: .34rem
+    color: #333
+    font-weight: normal
+    text-align: center
+  & span
+    display block
+    padding: .2rem 0 .4rem
+    text-align: center;
+    color: #bbb
+.article-content
+  padding: .4rem 0
+  overflow: hidden
+  color: #666
+  line-height 1.8
+  img
+    margin 0 auto!important
+    max-width: 100%!important
+    height auto!important
+  //p
+  //  text-indent: 2em
+  table
+    max-width: 100% !important
+    width auto !important
+    border: 1px solid #eee
+    border-collapse: collapse;
+    border-spacing: 0;
+    th
+    td
+      min-width 15% !important
+      font-size .24rem !important
+      word-wrap: break-word !important
+      word-break: break-all !important
+      white-space normal !important
+      padding .1rem
+      border: 1px solid #eee

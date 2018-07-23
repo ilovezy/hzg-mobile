@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>长富理财APP下载</title>
+  <link rel="shortcut icon" href=/static/favicon.ico>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      background-color: #ff3b47;
+    }
+    .page{
+      height: 1080px;
+      background-repeat: no-repeat;
+      background-position: center top;
+    }
+    .page1{
+      background-image: url("appdown/images/page1_bg.png");
+    }
+    .page1 .text{
+      position: absolute;
+      top: 395px;
+      left: 0;
+    }
+    .page1 .phone{
+      position: absolute;
+      top: 242px;
+      right: -66px;
+    }
+    .page2{
+      background-image: url("appdown/images/page2_bg.png");
+    }
+    .page2 .text{
+      position: absolute;
+      top: 66px;
+      left: 310px;
+    }
+    .page2 .phone{
+      position: absolute;
+      top: 237px;
+      left: 152px;
+    }
+    .page3{
+      background-image: url("appdown/images/page3_bg.png");
+    }
+    .page3 .text{
+      position: absolute;
+      top: 480px;
+      right: 0;
+    }
+    .page3 .phone{
+      position: absolute;
+      top: 188px;
+      left: -18px;
+    }
+    .page4{
+      background-image: url("appdown/images/page4_bg.png");
+    }
+    .page4 .text{
+      position: absolute;
+      top: 148px;
+      left: 0;
+    }
+    .page4 .phone{
+      position: absolute;
+      bottom: 0;
+      right: -104px;
+    }
+    .container{
+      width: 1000px;
+      margin: 0 auto;
+      height: 1080px;
+      position: relative;
+    }
+    .appdown-link{
+      position: absolute;
+      top: 688px;
+    }
+    .appdown-link a.-iphone,.appdown-link a.-android{
+      display: block;
+      width: 160px;
+      height: 60px;
+      padding-left: 60px;
+      margin-bottom: 20px;
+      line-height: 60px;
+      text-align: center;
+      color: #fff;
+      text-decoration: none;
+      font-size: 24px;
+      background: url("./appdown/images/app_link_bg.png") no-repeat left top;
+    }
+    .appdown-link a.-android{
+      background-position: left bottom;
+    }
+    .appdown-link .-qrcode{
+      display: block;
+      position: absolute;
+      left: 280px;
+      top: 0;
+      width: 144px;
+      height: 144px;
+      background: url("./appdown/images/appdown_qrcode.png") no-repeat left top;
+    }
+  </style>
+  <script src="//libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="appdown">
+  <div class="page page1 section">
+    <div class="container">
+      <img src="appdown/images/page1_text.png" class="text"> <img src="appdown/images/page1_phone.png" class="phone">
+      <div class="appdown-link">
+        <a href="//android.myapp.com/myapp/detail.htm?apkName=com.cflc.hp" class="-iphone">iPhone</a>
+        <a href="//android.myapp.com/myapp/detail.htm?apkName=com.cflc.hp" class="-android">Android</a>
+        <i class="-qrcode"></i>
+      </div>
+    </div>
+  </div>
+  <div class="page page2 section">
+    <div class="container">
+      <img src="appdown/images/page2_text.png" class="text"> <img src="appdown/images/page2_phone.png" class="phone">
+    </div>
+  </div>
+  <div class="page page3 section">
+    <div class="container">
+      <img src="appdown/images/page3_text.png" class="text"> <img src="appdown/images/page3_phone.png" class="phone">
+    </div>
+  </div>
+  <div class="page page4 section">
+    <div class="container">
+      <img src="appdown/images/page4_text.png" class="text"> <img src="appdown/images/page4_phone.png" class="phone">
+    </div>
+  </div>
+</div>
+</body>
+</html>

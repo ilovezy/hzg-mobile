@@ -1,0 +1,111 @@
+@keyframes bounce-down {
+  25% {transform: translateY(-3px);}
+  50%, 100% {transform: translateY(0);}
+  75% {transform: translateY(3px);}
+}
+
+.carnival-menu
+  position relative
+  z-index 1000
+  left 0
+  right 0
+  bottom 0
+  height 0
+  ul
+    position: absolute
+    z-index 1000
+    left 0
+    right 0
+    bottom 0
+    margin 0 auto
+    width 7.5rem
+    background url("images/footer_menu.png") repeat-x left .45rem / 1.55rem 4.47rem
+    li
+      float left
+      display: flex;
+      margin-left -.02rem
+      flex-direction: column;
+      justify-content: center;
+      margin-top .08rem
+      width 1.55rem
+      height 1.04rem
+      text-align center
+      font-weight bold
+      font-size .26rem
+      background url("images/footer_menu.png") repeat-x left -.87rem / 1.55rem 4.47rem
+      &.-current
+        margin-top 0
+        padding-top .1rem
+        height 1.12rem
+        color #fff
+        background-position left -2.11rem
+      &.-home
+        margin: .08rem .11rem 0
+        width 1.15rem
+        background-position left -3.43rem
+
+
+.isloginPopup
+.isNotlotteryPopup
+  position relative
+  width 6.8rem
+  .close
+    display block
+    position absolute
+    top: -.35rem
+    right -.3rem
+    width .8rem
+    height .8rem
+    background url("images/ranking/close.png") no-repeat center top / contain
+  .popup-center
+    text-align: center;
+    border: .03rem solid #222
+    border-radius .5rem
+    background-color #ffc21c
+    .info
+      width 100%
+      display flex
+      flex-direction: column;
+      justify-content: center;
+      height 3rem
+      font-size .36rem
+      border-bottom .03rem solid #222
+      border-radius .5rem .5rem 0 0
+      .decorate
+        display block
+        position: absolute
+        width .59rem
+        height .87rem
+        background url("images/login_decorate.png") no-repeat left top / .59rem .87rem
+        &.-t
+          width .48rem
+          height .36rem
+          left: .3rem
+          top: .5rem
+        &.-b
+          width .59rem
+          height .45rem
+          right .3rem
+          top 2.7rem
+          background-position left bottom
+    .btn-wrap
+      padding: .3rem
+      height 1.62rem
+      border-radius 0 0 .5rem .5rem
+      background #fff url("images/ranking/btn_login.png") no-repeat center .3rem / 3.14rem 1.02rem
+      &.-invest
+        background #fff
+        .btn-invest
+          display block
+          margin 0 auto
+          padding 0
+          width 4.24rem
+          height 1.02rem
+          line-height .9rem
+          text-align: center
+          color #fff
+          font-weight bold
+          font-size .36rem
+          background url("images/ranking/btn_invest.png") no-repeat center top / 4.24rem 2.14rem
+
+
