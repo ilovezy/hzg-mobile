@@ -598,7 +598,7 @@
         this.investLoading = false
         this.axios.post('auth/transaction/certification/order', this.investParameter).then(res => {
           if (res.success) {
-            this.$router.push({name: 'invest_success', params: res.result})
+            this.$router.push({name: 'product_invest_success', params: res.result})
             this.investLoading = true
           } else {
             this.$dialog.toast({mes: res.errorDescription});
