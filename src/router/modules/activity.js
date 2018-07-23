@@ -1,6 +1,15 @@
 //活动路由
 let Activity = [
   {
+    path: '/activity',
+    name: 'activity',//活动
+    meta:{
+      title: '活动中心'
+    },
+    component: resolve => require(['@/views/activity'], resolve)
+  },
+  //全局活动路由
+  {
     path: '/activity/newbiesem',
     name: 'newbiesem',
     meta:{
@@ -58,16 +67,24 @@ let Activity = [
     path: '/activity/carnival_lottery',
     name: 'carnival_lottery',
     meta:{
-      title: '幸运大赚盘'
+      title: '幸运大转盘'
     },
     component: resolve => require(['@/views/activity/common/carnival/lottery'], resolve)
   },{
-    path: '/activity/carnival_top',
+    path: '/activity/carnival_lottery_log',
+    name: 'carnival_lottery_log',
+    meta:{
+      title: '中奖记录',
+      requireAuth: true
+    },
+    component: resolve => require(['@/views/activity/common/carnival/lottery_log'], resolve)
+  },{
+    path: '/activity/carnival_ranking',
     name: 'carnival_top',
     meta:{
-      title: '巅峰排行榜'
+      title: '巅峰排位赛'
     },
-    component: resolve => require(['@/views/activity/common/carnival/top'], resolve)
+    component: resolve => require(['@/views/activity/common/carnival/ranking'], resolve)
   },
 ]
 export default Activity

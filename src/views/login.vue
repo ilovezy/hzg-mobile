@@ -1,27 +1,54 @@
 <template>
   <layout class="bg-white">
-    <navbar :title="$route.meta.title" slot="navbar">
-      <navbar-back-icon @click.native="goBack" slot="left"></navbar-back-icon>
+    <navbar :title="$route.meta.title"
+            slot="navbar">
+      <navbar-back-icon @click.native="goBack"
+                        slot="left"></navbar-back-icon>
     </navbar>
     <cell-group>
       <cell-item>
-        <icon slot="icon" name="mobile" size=".42rem" color="#bbb"></icon>
-        <input slot="right" type="tel" maxlength="11" placeholder="手机号码" v-model="username">
+        <icon slot="icon"
+              name="mobile"
+              size=".42rem"
+              color="#bbb"></icon>
+        <input slot="right"
+               type="tel"
+               maxlength="11"
+               placeholder="手机号码"
+               v-model="username">
       </cell-item>
       <cell-item>
-        <icon slot="icon" name="password" size=".42rem" color="#bbb"></icon>
-        <input slot="right" type="password" maxlength="16" placeholder="登录密码" v-model.trim="password">
+        <icon slot="icon"
+              name="password"
+              size=".42rem"
+              color="#bbb"></icon>
+        <input slot="right"
+               type="password"
+               maxlength="16"
+               placeholder="登录密码"
+               v-model.trim="password">
       </cell-item>
       <div class="cell-button">
         <p class="text-right">
-          <router-link to="forget" class="text-right">忘记密码？</router-link>
+          <router-link to="forget"
+                       class="text-right">忘记密码？
+          </router-link>
         </p>
-        <ibutton size="large" type="disabled" v-if="isNaN(this.username) || username.length !== 11 || password.length < 6 || password.length > 16">登录</ibutton>
-        <ibutton size="large" type="primary" @click.native="loginBtn()" v-else>立即登录</ibutton>
+        <ibutton size="large"
+                 type="disabled"
+                 v-if="isNaN(this.username) || username.length !== 11 || password.length < 6 || password.length > 16">登录
+        </ibutton>
+        <ibutton size="large"
+                 type="primary"
+                 @click.native="loginBtn()"
+                 v-else>立即登录
+        </ibutton>
       </div>
     </cell-group>
     <div class="warm-prompt">
-      <router-link to="/register" tag="div" class="reg-login">新用户注册，领取666元大礼包<i class="icon-arrow-more"></i>
+      <router-link to="/register"
+                   tag="div"
+                   class="reg-login">新用户注册，领取666元大礼包<i class="icon-arrow-more"></i>
       </router-link>
       <p class="text-center">客服热线：<a href="tel:4000998799"> 400-099-8799</a></p>
     </div>
@@ -29,25 +56,25 @@
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         username: '',
         password: ''
       }
     },
-    created(){
+    created() {
       this.islogin()
     },
     methods: {
-      goBack(){
+      goBack() {
         this.$router.back()
       },
-      islogin(){
+      islogin() {
         if (localStorage.getItem('token') !== null) {
           this.$router.push('/account')
         }
       },
-      loginBtn(){
+      loginBtn() {
         if (!global.vMobile.test(this.username)) {
           this.$dialog.toast({mes: '输入的手机号码格式不正确x'});
           return
@@ -72,11 +99,13 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus"
+       rel="stylesheet/stylus">
   .cell-button
     p
       padding-bottom .25rem
       color: #999
+
   .reg-login
     margin 0 auto .16rem
     padding-bottom .16rem

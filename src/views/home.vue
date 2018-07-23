@@ -11,6 +11,7 @@
       </rollnotice-item>
       <router-link to="/article/notice" class="notice-more" slot="right">更多</router-link>
     </rollnotice>
+
     <grids-group :rows="3" class="home-guide">
       <grids-item link="/activity">
         <i slot="icon" class="icon-guide -activity"></i> <span slot="text">活动中心</span>
@@ -50,6 +51,10 @@
       <button class="btn btn-disabled" v-else-if="project.status == 'payed'">已完结</button>
     </div>
     <div class="jxbank-tips"><i class="icon-shield"></i>账户资金安全由渤海银行存管账户保障</div>
+
+    <button class="btn">
+      <router-link to="/demo/demo" class="notice-more">测试页面</router-link>
+    </button>
   </layout>
 </template>
 <script>

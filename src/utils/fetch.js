@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'localhost') {
 
 const service = axios.create({
   baseURL: baseAPI,
-  timeout: 50000,
+  timeout: 5000,
 });
 
 export function urlParse() {
@@ -92,7 +92,7 @@ service.interceptors.response.use(
   error => {
     Loading.close();
     // console.log(error)// for debug
-    Toast({mes: '系统繁忙，请稍后再试', timeout: 5000, icon: 'error'})
+    Toast({mes: '系统繁忙，请稍后再试', timeout: 2000, icon: 'error'})
     return Promise.reject(error)
   }
 )
