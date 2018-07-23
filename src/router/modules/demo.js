@@ -1,5 +1,5 @@
 let demoRoute = [{
-    path: '/demo/demo',
+    path: '/demo',
     name: 'demo',//首页
     meta:{
       title: '测试用'

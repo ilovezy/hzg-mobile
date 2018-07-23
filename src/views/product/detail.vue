@@ -1,8 +1,15 @@
 <template>
-  <layout :showTabbar="true" class="bg-white">
-    <nav slot="navbar" class="product-header" :style="isInvestSurprise ? 'z-index: 3000': ''" :class="isInvestSurprise ? 'fixed': '' ">
+  <layout :showTabbar="true"
+          class="bg-white">
+    <nav slot="navbar"
+         class="product-header"
+         :style="isInvestSurprise ? 'z-index: 3000': ''"
+         :class="isInvestSurprise ? 'fixed': '' ">
       <h1>
-        <i class="back-icon" @click="goBack()"></i><span @click="goBack()" class="title">{{product.name}}</span><i v-if="product.novice == true" class="novice">新手专享</i>
+        <i class="back-icon"
+           @click="goBack()"></i><span @click="goBack()"
+                                       class="title">{{product.name}}</span><i v-if="product.novice == true"
+                                                                               class="novice">新手专享</i>
       </h1>
     </nav>
     <div class="product-detail">
@@ -20,7 +27,9 @@
           </dl>
         </div>
         <ul class="product-progress">
-          <li v-if="product.status == 'collection_end' || product.status == 'payed' ">实际募得金额：{{product.formatScale2InvestAmount}}</li>
+          <li v-if="product.status == 'collection_end' || product.status == 'payed' ">
+            实际募得金额：{{product.formatScale2InvestAmount}}
+          </li>
           <li v-else>剩余可投：{{product.formatRemainAmount}} 元</li>
           <li>
             <div class="progressbar">
@@ -31,130 +40,236 @@
           </li>
           <li>项目总额：{{product.formatScale2TotalAmount}} 元</li>
         </ul>
-        <span class="btn-invest-surprise" @click="isInvestSurprise = true"></span>
+        <span class="btn-invest-surprise"
+              @click="isInvestSurprise = true"></span>
       </div>
       <!--项目进度-->
       <section class="product-props">
         <div class="props-item">
           <label class="title">当前阶段：</label>
-          <span class="content" v-if="product.status == 'wait_collection'">{{product.formatStatus}} </span>
-          <div class="content" v-if="product.status == 'collection'">
+          <span class="content"
+                v-if="product.status == 'wait_collection'">{{product.formatStatus}} </span>
+          <div class="content"
+               v-if="product.status == 'collection'">
             <div class="status">
-              {{product.formatStatus}} <i class="icon-question" @click="toastNone()"></i>
+              {{product.formatStatus}} <i class="icon-question"
+                                          @click="toastNone()"></i>
             </div>
             <div class="stop-time">
-              <countdown :time="product.saleEndTimeCountDown" timetype="second" class="countdown" :callback="function(){refreshPage()}">
+              <countdown :time="product.saleEndTimeCountDown"
+                         timetype="second"
+                         class="countdown"
+                         :callback="function(){refreshPage()}">
                 <i>{%d}</i>天 <i>{%h}</i>时 <i>{%m}</i>分 <i>{%s}</i>秒
               </countdown>
               <p class="text">距募集期截止</p>
             </div>
           </div>
-          <span class="content collection_end" v-if="product.status == 'collection_end' || product.status == 'loan_finished'">{{product.formatStatus}}</span>
-          <span class="content payed" v-if="product.status == 'payed'">{{product.formatStatus}}</span>
+          <span class="content collection_end"
+                v-if="product.status == 'collection_end' || product.status == 'loan_finished'">{{product.formatStatus}}</span>
+          <span class="content payed"
+                v-if="product.status == 'payed'">{{product.formatStatus}}</span>
         </div>
         <div class="props-item">
           <label class="title">成立日期：</label>
-          <span class="content" v-if="product.formatDateEstablishTime == undefined">募集期截止或项目100%募集</span><span class="content" v-else>{{product.formatDateEstablishTime}}</span>
+          <span class="content"
+                v-if="product.formatDateEstablishTime == undefined">募集期截止或项目100%募集</span><span class="content"
+                                                                                               v-else>{{product.formatDateEstablishTime}}</span>
         </div>
         <div class="props-item">
           <label class="title">起息时间：</label> <span class="content">T（成立日）＋{{product.interestFrom}}</span>
         </div>
         <div class="props-item">
-          <label class="title">收益方式：</label> <span class="content" v-text="product.formatProfitType"></span>
+          <label class="title">收益方式：</label> <span class="content"
+                                                   v-text="product.formatProfitType"></span>
         </div>
         <div class="props-item">
           <label class="title">认购起点：</label>
           <span class="content">{{product.formatScale2MinInvestAmount}}元，递增金额{{product.formatScale2IncrementAmount}}元</span>
         </div>
-        <div class="link-product-detail" @click="getProductDetails()"><i class="icon-arrow-up"></i> 点击查看详情</div>
+        <div class="link-product-detail"
+             @click="getProductDetails()"><i class="icon-arrow-up"></i> 点击查看详情
+        </div>
       </section>
     </div>
     <!--投资按钮 & 判断新手标-->
-    <div class="btn-invest" slot="tabbar" v-if="product.novice == true && accountInfo.hasInvested == true">
+    <div class="btn-invest"
+         slot="tabbar"
+         v-if="product.novice == true && accountInfo.hasInvested == true">
       <button class="btn-disabled btn-block">新手专享</button>
     </div>
-    <div class="btn-invest" slot="tabbar" v-else>
-      <button class="btn-primary-hollow btn-block" v-if="product.status == 'wait_collection'">距离募集开始
-        <countdown :time="product.startTimeCountDown" timetype="second" class="countdown-detail" format="<i>{%h}</i>:<i>{%m}</i>:<i>{%s}</i>" doneText="" :callback="refreshPage">
+    <div class="btn-invest"
+         slot="tabbar"
+         v-else>
+      <button class="btn-primary-hollow btn-block"
+              v-if="product.status == 'wait_collection'">距离募集开始
+        <countdown :time="product.startTimeCountDown"
+                   timetype="second"
+                   class="countdown-detail"
+                   format="<i>{%h}</i>:<i>{%m}</i>:<i>{%s}</i>"
+                   doneText=""
+                   :callback="refreshPage">
         </countdown>
       </button>
-      <button class="btn-primary btn-block" v-else-if="product.status == 'collection'" @click="openInvest">立即投资</button>
-      <button class="btn-disabled btn-block" v-else-if="product.status == 'collection_end' || product.status == 'loan_finished'">{{product.formatStatus}}</button>
-      <button class="btn-disabled btn-block" v-else-if="product.status == 'payed'">{{product.formatStatus}}</button>
+      <button class="btn-primary btn-block"
+              v-else-if="product.status == 'collection'"
+              @click="openInvest">立即投资
+      </button>
+      <button class="btn-disabled btn-block"
+              v-else-if="product.status == 'collection_end' || product.status == 'loan_finished'">
+        {{product.formatStatus}}
+      </button>
+      <button class="btn-disabled btn-block"
+              v-else-if="product.status == 'payed'">{{product.formatStatus}}
+      </button>
     </div>
     <!-- 投资表单 -->
-    <popup v-model="isInvestFrom" class="invest-from" position="bottom" height="auto">
+    <popup v-model="isInvestFrom"
+           class="invest-from"
+           position="bottom"
+           height="auto">
       <cell-group class="invest-amount">
         <cell-item>
-          <span slot="left">投资金额</span> <input slot="right" v-model="investAmount" type="text" placeholder="请输入">
+          <span slot="left">投资金额</span> <input slot="right"
+                                               v-model="investAmount"
+                                               type="text"
+                                               placeholder="请输入">
           <span slot="right">元</span>
         </cell-item>
-        <div class="invest-tips" v-if="investAmount == ''">{{product.formatScale2MinInvestAmount}}元起购，{{product.formatScale2IncrementAmount}}元递增</div>
-        <div class="invest-tips error" v-else-if="investAmount > product.remainAmount">
+        <div class="invest-tips"
+             v-if="investAmount == ''">
+          {{product.formatScale2MinInvestAmount}}元起购，{{product.formatScale2IncrementAmount}}元递增
+        </div>
+        <div class="invest-tips error"
+             v-else-if="investAmount > product.remainAmount">
           <i class="icon-warn "></i>投资金额不能大于剩余可投金额
         </div>
-        <div class="invest-tips error" v-else-if="investAmount !== '' && investAmount < product.minInvestAmount || (investAmount * 100 - product.minInvestAmount * 100) % (product.incrementAmount * 100) !== 0 ">
+        <div class="invest-tips error"
+             v-else-if="investAmount !== '' && investAmount < product.minInvestAmount || (investAmount * 100 - product.minInvestAmount * 100) % (product.incrementAmount * 100) !== 0 ">
           <i class="icon-warn"></i>{{product.formatScale2MinInvestAmount}}元起购，{{product.formatScale2IncrementAmount}}元递增
         </div>
-        <div class="invest-tips error" v-else-if="product.remainAmount >= product.minInvestAmount * 2 && product.minInvestAmount > product.remainAmount - investAmount && investAmount != product.remainAmount">
+        <div class="invest-tips error"
+             v-else-if="product.remainAmount >= product.minInvestAmount * 2 && product.minInvestAmount > product.remainAmount - investAmount && investAmount != product.remainAmount">
           <i class="icon-warn "></i>请一次性投满,或至少留下{{this.product.minInvestAmount}}元!
         </div>
-        <div class="invest-tips error" v-else-if="product.minInvestAmount * 2 > product.remainAmount && product.minInvestAmount !== product.remainAmount && investAmount != product.remainAmount">
+        <div class="invest-tips error"
+             v-else-if="product.minInvestAmount * 2 > product.remainAmount && product.minInvestAmount !== product.remainAmount && investAmount != product.remainAmount">
           <i class="icon-warn "></i>请全部认购剩余金额
         </div>
-        <div class="invest-tips warning" v-else-if="profitCoupon.amount > 0">
-          <i class="icon-earnings"></i> 预期收益¥{{(investAmount * ((product.expectAnnualizedRate + product.extraAnnualizedRate + profitCoupon.amount) / 100) * product.period / 365).toFixed(2)}}
+        <div class="invest-tips warning"
+             v-else-if="profitCoupon.amount > 0">
+          <i class="icon-earnings"></i> 预期收益¥{{(investAmount * ((product.expectAnnualizedRate +
+          product.extraAnnualizedRate + profitCoupon.amount) / 100) * product.period / 365).toFixed(2)}}
         </div>
-        <div class="invest-tips warning" v-else>
-          <i class="icon-earnings"></i> 预期收益¥{{(investAmount * ((product.expectAnnualizedRate + product.extraAnnualizedRate) / 100) * product.period / 365).toFixed(2)}}
+        <div class="invest-tips warning"
+             v-else>
+          <i class="icon-earnings"></i> 预期收益¥{{(investAmount * ((product.expectAnnualizedRate +
+          product.extraAnnualizedRate) / 100) * product.period / 365).toFixed(2)}}
         </div>
       </cell-group>
       <cell-group>
-        <cell-item arrow v-if="cashList.length !== 0">
-          <label slot="left">使用红包</label> <select slot="right" v-model="cashCoupon">
+        <cell-item arrow
+                   v-if="cashList.length !== 0">
+          <label slot="left">使用红包</label> <select slot="right"
+                                                  v-model="cashCoupon">
           <option value="0">请选择</option>
-          <option v-for="item in cashList" :value="item">{{item.amount}}元 (投资≥{{item.formatAmountScope}}元，期限≥{{item.daysScope}}天)</option>
+          <option v-for="item in cashList"
+                  :value="item">{{item.amount}}元 (投资≥{{item.formatAmountScope}}元，期限≥{{item.daysScope}}天)
+          </option>
         </select>
         </cell-item>
-        <cell-item class="balance-status" :class="investAmount > myFund.availableBalance ? 'false' : ''">
+        <cell-item class="balance-status"
+                   :class="investAmount > myFund.availableBalance ? 'false' : ''">
           <span slot="left">使用余额</span>
-          <div slot="right" v-if="!investAmount || investAmount > myFund.availableBalance">
+          <div slot="right"
+               v-if="!investAmount || investAmount > myFund.availableBalance">
             <i class="icon-warn"></i>可用余额{{myFund.formatAvailableBalance}}元
           </div>
-          <div slot="right" style="color: #d82d2d" v-else-if="investAmount - cashCoupon.amount <= 0">您投资的金额不能小于红包使用限额</div>
-          <div slot="right" v-else-if="cashCoupon.amount > 0">{{investAmount - cashCoupon.amount}}元</div>
-          <div slot="right" v-else>{{investAmount}}元</div>
-          <router-link tag="button" to="/account/recharge" slot="right" class="btn btn-hollow">充值</router-link>
+          <div slot="right"
+               style="color: #d82d2d"
+               v-else-if="investAmount - cashCoupon.amount <= 0">您投资的金额不能小于红包使用限额
+          </div>
+          <div slot="right"
+               v-else-if="cashCoupon.amount > 0">{{investAmount - cashCoupon.amount}}元
+          </div>
+          <div slot="right"
+               v-else>{{investAmount}}元
+          </div>
+          <router-link tag="button"
+                       to="/account/recharge"
+                       slot="right"
+                       class="btn btn-hollow">充值
+          </router-link>
         </cell-item>
-        <cell-item arrow v-if="profitList.length !== 0">
-          <span slot="left">使用加息券</span> <select slot="right" v-model="profitCoupon">
+        <cell-item arrow
+                   v-if="profitList.length !== 0">
+          <span slot="left">使用加息券</span> <select slot="right"
+                                                 v-model="profitCoupon">
           <option value="0">请选择</option>
-          <option v-for="item in profitList" :value="item">{{item.amount}}% (投资≥{{item.formatAmountScope}}，期限≥{{item.daysScope}}天)</option>
+          <option v-for="item in profitList"
+                  :value="item">{{item.amount}}% (投资≥{{item.formatAmountScope}}，期限≥{{item.daysScope}}天)
+          </option>
         </select>
         </cell-item>
         <cell-item>
           <span slot="left">验证码</span>
-          <input type="tel" slot="right" v-model="smsCode" maxlength="6" placeholder="短信验证码">
-          <div slot="right" class="sms-codes">
-            <span class="identification" v-show="identificationShow">识别码<br>{{identification}}</span>
-            <sendcode v-model="sendCodeStart" @click.native="sendCode" runStr="{%s}秒" :second="second" type="warning" style="width: 1.5rem"></sendcode>
+          <input type="tel"
+                 slot="right"
+                 v-model="smsCode"
+                 maxlength="6"
+                 placeholder="短信验证码">
+          <div slot="right"
+               class="sms-codes">
+            <span class="identification"
+                  v-show="identificationShow">识别码<br>{{identification}}</span>
+            <sendcode v-model="sendCodeStart"
+                      @click.native="sendCode"
+                      runStr="{%s}秒"
+                      :second="second"
+                      type="warning"
+                      style="width: 1.5rem"></sendcode>
           </div>
         </cell-item>
       </cell-group>
       <div class="cell-button">
-        <button class="btn-disabled btn-block" v-if="investAmount < product.minInvestAmount || investAmount > myFund.availableBalance || investAmount > product.remainAmount || (investAmount * 100 - product.minInvestAmount * 100) % (product.incrementAmount * 100) !== 0">立即投资</button>
-        <button class="btn-disabled btn-block" v-else-if="product.remainAmount >= product.minInvestAmount * 2 && product.minInvestAmount > product.remainAmount - investAmount && investAmount != product.remainAmount">立即投资</button>
-        <button class="btn-disabled btn-block" v-else-if="product.minInvestAmount * 2 > product.remainAmount && product.minInvestAmount !== product.remainAmount && investAmount != product.remainAmount">立即投资</button>
-        <button class="btn-disabled btn-block" v-else-if="investAmount - cashCoupon.amount <= 0">立即投资</button>
-        <button class="btn-disabled btn-block" v-else-if="!smsCode">立即投资</button>
-        <button class="btn-disabled btn-block" v-else-if="!investLoading">立即投资</button>
-        <button class="btn-primary btn-block" v-else @click="submitInvest()">立即投资</button>
+        <button class="btn-disabled btn-block"
+                v-if="investAmount < product.minInvestAmount || investAmount > myFund.availableBalance || investAmount > product.remainAmount || (investAmount * 100 - product.minInvestAmount * 100) % (product.incrementAmount * 100) !== 0">
+          立即投资
+        </button>
+        <button class="btn-disabled btn-block"
+                v-else-if="product.remainAmount >= product.minInvestAmount * 2 && product.minInvestAmount > product.remainAmount - investAmount && investAmount != product.remainAmount">
+          立即投资
+        </button>
+        <button class="btn-disabled btn-block"
+                v-else-if="product.minInvestAmount * 2 > product.remainAmount && product.minInvestAmount !== product.remainAmount && investAmount != product.remainAmount">
+          立即投资
+        </button>
+        <button class="btn-disabled btn-block"
+                v-else-if="investAmount - cashCoupon.amount <= 0">立即投资
+        </button>
+        <button class="btn-disabled btn-block"
+                v-else-if="!smsCode">立即投资
+        </button>
+        <button class="btn-disabled btn-block"
+                v-else-if="!investLoading">立即投资
+        </button>
+        <button class="btn-primary btn-block"
+                v-else
+                @click="submitInvest()">立即投资
+        </button>
       </div>
     </popup>
     <!--投资小惊喜-->
-    <popup v-model="isInvestSurprise" class="invest-surprise" :style="isInvestSurprise ? 'display:block': 'display:none'" :class="isAppdown ? '' : '-appdown'" position="top" height="auto">
+    <popup v-model="isInvestSurprise"
+           class="invest-surprise"
+           :style="isInvestSurprise ? 'display:block': 'display:none'"
+           :class="isAppdown ? '' : '-appdown'"
+           position="top"
+           height="auto">
       <div class="tips">＊项目成立后发放</div>
-      <router-link to="/article/notice/111" class="surprise-explain">奖励说明></router-link>
+      <router-link to="/article/notice/111"
+                   class="surprise-explain">奖励说明>
+      </router-link>
       <ul class="surprise-info">
         <li>
           <dl>
@@ -162,8 +277,12 @@
             <dt>积分</dt>
           </dl>
           <div class="title">一马当先</div>
-          <div class="content" v-if="product.firstInvestor == undefined">虚位以待</div>
-          <div class="content" v-else>{{product.firstInvestor}}</div>
+          <div class="content"
+               v-if="product.firstInvestor == undefined">虚位以待
+          </div>
+          <div class="content"
+               v-else>{{product.firstInvestor}}
+          </div>
         </li>
         <li>
           <dl>
@@ -171,8 +290,12 @@
             <dt>积分</dt>
           </dl>
           <div class="title">一鸣惊人</div>
-          <div class="content" v-if="product.mostInvestor == undefined">虚位以待</div>
-          <div class="content" v-else>{{product.mostInvestor}}</div>
+          <div class="content"
+               v-if="product.mostInvestor == undefined">虚位以待
+          </div>
+          <div class="content"
+               v-else>{{product.mostInvestor}}
+          </div>
         </li>
         <li>
           <dl>
@@ -180,110 +303,167 @@
             <dt>积分</dt>
           </dl>
           <div class="title">一锤定音</div>
-          <div class="content" v-if="product.lastInvestor == undefined">虚位以待</div>
-          <div class="content" v-else>{{product.lastInvestor}}</div>
+          <div class="content"
+               v-if="product.lastInvestor == undefined">虚位以待
+          </div>
+          <div class="content"
+               v-else>{{product.lastInvestor}}
+          </div>
         </li>
       </ul>
-      <icon name="arrow-up" class="close" size=".4rem" @click.native="isInvestSurprise = false"></icon>
+      <icon name="arrow-up"
+            class="close"
+            size=".4rem"
+            @click.native="isInvestSurprise = false"></icon>
     </popup>
     <!-- 项目详情-->
-    <popup v-model="isProductDetail" class="product-details" :class=" isProductDetail ? '': '-show'" position="bottom" height="100%">
+    <popup v-model="isProductDetail"
+           class="product-details"
+           :class=" isProductDetail ? '': '-show'"
+           position="bottom"
+           height="100%">
       <nav class="product-header">
         <h1>
-          <i class="icon-close" style="margin-right: .05rem" @click="isProductDetail = false"></i>
-          <span @click="isProductDetail = false" class="title">{{product.name}}</span>
-          <i v-if="product.novice == true" class="novice">新手专享</i>
+          <i class="icon-close"
+             style="margin-right: .05rem"
+             @click="isProductDetail = false"></i>
+          <span @click="isProductDetail = false"
+                class="title">{{product.name}}</span>
+          <i v-if="product.novice == true"
+             class="novice">新手专享</i>
         </h1>
       </nav>
       <tab class="product-details-tab">
-        <span class="badge badge-danger" v-if="icInvestRecordTotalElements>0 && icInvestRecordTotalElements <= 89">{{icInvestRecordTotalElements}}</span>
-        <span class="badge badge-danger" v-if="icInvestRecordTotalElements>99 ">99+</span>
+        <span class="badge badge-danger"
+              v-if="icInvestRecordTotalElements>0 && icInvestRecordTotalElements <= 89">{{icInvestRecordTotalElements}}</span>
+        <span class="badge badge-danger"
+              v-if="icInvestRecordTotalElements>99 ">99+</span>
         <tab-panel label="项目信息">
           <div v-if="icProjectDescPojo.projectType === 'baoli'">
             <div class="project-group">
               <h3 class="project-header">项目简介</h3>
-              <div class="project-body" v-text="icProjectDescPojo.intro"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.intro"></div>
             </div>
-            <div class="project-group" v-if="icProjectDescPojo.descEnterprise !== undefined">
+            <div class="project-group"
+                 v-if="icProjectDescPojo.descEnterprise !== undefined">
               <h3 class="project-header">债权转让方介绍</h3>
-              <div class="project-body" v-text="icProjectDescPojo.descEnterprise.remarks"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.descEnterprise.remarks"></div>
             </div>
-            <div class="project-group" v-if="icProjectDescPojo.seller.interestedVisible !== false">
+            <div class="project-group"
+                 v-if="icProjectDescPojo.seller.interestedVisible !== false">
               <h3 class="project-header">基础资产方介绍</h3>
-              <div class="project-body" v-if="icProjectDescPojo.seller.name !== undefined" v-text="icProjectDescPojo.seller.name + icProjectDescPojo.seller.intro"></div>
-              <div class="project-body" v-else v-text="icProjectDescPojo.seller.intro"></div>
+              <div class="project-body"
+                   v-if="icProjectDescPojo.seller.name !== undefined"
+                   v-text="icProjectDescPojo.seller.name + icProjectDescPojo.seller.intro"></div>
+              <div class="project-body"
+                   v-else
+                   v-text="icProjectDescPojo.seller.intro"></div>
             </div>
             <div class="project-group">
               <h3 class="project-header">基础资产保障措施</h3>
-              <div class="project-body" v-text="icProjectDescPojo.safeguardMeasure"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.safeguardMeasure"></div>
             </div>
             <div class="project-group">
               <h3 class="project-header">还款来源</h3>
-              <div class="project-body" v-text="icProjectDescPojo.repaySource"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.repaySource"></div>
             </div>
             <div class="project-group">
               <h3 class="project-header">风险揭示</h3>
               <div class="project-body">
-                投资人系依赖于自己的独立判断在本项目项下进行投资，投资人在做出投资决策前，应全面了解相关投资标的，谨慎决策；任何通过长富理财进行的交易并不能避免以下风险的产生，该等风险需由投资人自行承担：<br>1. 政策风险：有关法律、法规及相关政策、规则发生变化，可能引起投资收益等方面异常波动，投资人有可能遭受损失；<br>2. 违约风险：因其他交易方无力或无意愿按时足额履约，投资人有可能遭受损失；<br>3. 利率风险：市场利率变化可能对购买或持有产品的实际收益产生影响；<br>4. 不可抗力因素导致的风险；<br>5. 因投资人的过错导致的任何损失，该过错包括但不限于：决策失误、操作不当、遗忘或泄露密码、密码被他人破解、投资人使用的计算机系统被第三方侵入、投资人委托他人代理交易时他人恶意或不当操作而造成的损失；<br>6. 平台注册协议提示的其他风险。<br>※以上并不能揭示投资人通过平台进行投资的全部风险及市场的全部情形。平台作为信息中介机构为投资人提供信息发布、信息撮合服务，不对任何投资人及/或任何交易提供任何明示或默示的担保承诺。平台提供的各种信息及资料仅供参考，投资人应依其独立判断做出决策。投资人据此进行投资交易的，产生的投资风险由投资人自行承担，信息中介机构即平台不承担任何责任。
+                投资人系依赖于自己的独立判断在本项目项下进行投资，投资人在做出投资决策前，应全面了解相关投资标的，谨慎决策；任何通过长富理财进行的交易并不能避免以下风险的产生，该等风险需由投资人自行承担：<br>1.
+                政策风险：有关法律、法规及相关政策、规则发生变化，可能引起投资收益等方面异常波动，投资人有可能遭受损失；<br>2. 违约风险：因其他交易方无力或无意愿按时足额履约，投资人有可能遭受损失；<br>3.
+                利率风险：市场利率变化可能对购买或持有产品的实际收益产生影响；<br>4. 不可抗力因素导致的风险；<br>5.
+                因投资人的过错导致的任何损失，该过错包括但不限于：决策失误、操作不当、遗忘或泄露密码、密码被他人破解、投资人使用的计算机系统被第三方侵入、投资人委托他人代理交易时他人恶意或不当操作而造成的损失；<br>6.
+                平台注册协议提示的其他风险。<br>※以上并不能揭示投资人通过平台进行投资的全部风险及市场的全部情形。平台作为信息中介机构为投资人提供信息发布、信息撮合服务，不对任何投资人及/或任何交易提供任何明示或默示的担保承诺。平台提供的各种信息及资料仅供参考，投资人应依其独立判断做出决策。投资人据此进行投资交易的，产生的投资风险由投资人自行承担，信息中介机构即平台不承担任何责任。
               </div>
             </div>
           </div>
           <div v-if="icProjectDescPojo.projectType === 'enterprise_invest'">
             <div class="project-group">
               <h3 class="project-header">项目简介</h3>
-              <div class="project-body" v-text="icProjectDescPojo.intro"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.intro"></div>
             </div>
-            <div class="project-group" v-if="icProjectDescPojo.descEnterprise !== undefined">
+            <div class="project-group"
+                 v-if="icProjectDescPojo.descEnterprise !== undefined">
               <h3 class="project-header">借款企业信息</h3>
-              <div class="project-body" v-text="icProjectDescPojo.descEnterprise.remarks"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.descEnterprise.remarks"></div>
             </div>
             <div class="project-group">
               <h3 class="project-header">资金用途</h3>
-              <div class="project-body" v-text="icProjectDescPojo.fundsUse"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.fundsUse"></div>
             </div>
             <div class="project-group">
               <h3 class="project-header">还款来源</h3>
-              <div class="project-body" v-text="icProjectDescPojo.repaySource"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.repaySource"></div>
             </div>
             <div class="project-group">
               <h3 class="project-header">风控措施</h3>
-              <div class="project-body" v-text="icProjectDescPojo.riskControl"></div>
+              <div class="project-body"
+                   v-text="icProjectDescPojo.riskControl"></div>
             </div>
             <div class="project-group">
               <h3 class="project-header">风险揭示</h3>
               <div class="project-body">
-                投资人系依赖于自己的独立判断在本项目项下进行投资，投资人在做出投资决策前，应全面了解相关投资标的，谨慎决策；任何通过长富理财进行的交易并不能避免以下风险的产生，该等风险需由投资人自行承担：<br>1. 政策风险：有关法律、法规及相关政策、规则发生变化，可能引起投资收益等方面异常波动，投资人有可能遭受损失；<br>2. 违约风险：因其他交易方无力或无意愿按时足额履约，投资人有可能遭受损失；<br>3. 利率风险：市场利率变化可能对购买或持有产品的实际收益产生影响；<br>4. 不可抗力因素导致的风险；<br>5. 因投资人的过错导致的任何损失，该过错包括但不限于：决策失误、操作不当、遗忘或泄露密码、密码被他人破解、投资人使用的计算机系统被第三方侵入、投资人委托他人代理交易时他人恶意或不当操作而造成的损失；<br>6. 平台注册协议提示的其他风险。<br>※以上并不能揭示投资人通过平台进行投资的全部风险及市场的全部情形。平台作为信息中介机构为投资人提供信息发布、信息撮合服务，不对任何投资人及/或任何交易提供任何明示或默示的担保承诺。平台提供的各种信息及资料仅供参考，投资人应依其独立判断做出决策。投资人据此进行投资交易的，产生的投资风险由投资人自行承担，信息中介机构即平台不承担任何责任。
+                投资人系依赖于自己的独立判断在本项目项下进行投资，投资人在做出投资决策前，应全面了解相关投资标的，谨慎决策；任何通过长富理财进行的交易并不能避免以下风险的产生，该等风险需由投资人自行承担：<br>1.
+                政策风险：有关法律、法规及相关政策、规则发生变化，可能引起投资收益等方面异常波动，投资人有可能遭受损失；<br>2. 违约风险：因其他交易方无力或无意愿按时足额履约，投资人有可能遭受损失；<br>3.
+                利率风险：市场利率变化可能对购买或持有产品的实际收益产生影响；<br>4. 不可抗力因素导致的风险；<br>5.
+                因投资人的过错导致的任何损失，该过错包括但不限于：决策失误、操作不当、遗忘或泄露密码、密码被他人破解、投资人使用的计算机系统被第三方侵入、投资人委托他人代理交易时他人恶意或不当操作而造成的损失；<br>6.
+                平台注册协议提示的其他风险。<br>※以上并不能揭示投资人通过平台进行投资的全部风险及市场的全部情形。平台作为信息中介机构为投资人提供信息发布、信息撮合服务，不对任何投资人及/或任何交易提供任何明示或默示的担保承诺。平台提供的各种信息及资料仅供参考，投资人应依其独立判断做出决策。投资人据此进行投资交易的，产生的投资风险由投资人自行承担，信息中介机构即平台不承担任何责任。
               </div>
             </div>
           </div>
         </tab-panel>
         <tab-panel label="公示材料">
-          <div class="notavailable" v-if="icProjectDescPojo.projectFiles == undefined">
-            <img src="../../../static/images/notavailable/not_product.png" alt="暂无公示材料~" class="not_icon">
+          <div class="notavailable"
+               v-if="icProjectDescPojo.projectFiles == undefined">
+            <img src="../../../static/images/notavailable/not_product.png"
+                 alt="暂无公示材料~"
+                 class="not_icon">
             <p class="not_txt">暂无公示材料~</p>
           </div>
-          <div class="project-image-list" v-else>
-            <dl class="project-image-item" v-for="item in icProjectDescPojo.projectFiles">
+          <div class="project-image-list"
+               v-else>
+            <dl class="project-image-item"
+                v-for="item in icProjectDescPojo.projectFiles">
               <dt v-text="item.name"></dt>
               <dd><img :src="item.savePath"></dd>
             </dl>
           </div>
         </tab-panel>
         <tab-panel label="投资纪录">
-          <div class="notavailable" v-show="this.icInvestRecord.length == 0">
-            <img src="../../../static/images/notavailable/not_product.png" alt="暂无投资记录~" class="not_icon">
+          <div class="notavailable"
+               v-show="this.icInvestRecord.length == 0">
+            <img src="../../../static/images/notavailable/not_product.png"
+                 alt="暂无投资记录~"
+                 class="not_icon">
             <p class="not_txt">暂无投资记录~</p>
           </div>
-          <infinitescroll :on-infinite="loadInvestRecordList" ref="loadInvestRecordList" v-show="this.icInvestRecord.length !== 0">
-            <div slot="list" class="investRecord-list" v-if="icInvestRecord !== undefined && icInvestRecord !== null">
-              <div class="investRecord-item" v-for="item in icInvestRecord">
+          <infinitescroll :on-infinite="loadInvestRecordList"
+                          ref="loadInvestRecordList"
+                          v-show="this.icInvestRecord.length !== 0">
+            <div slot="list"
+                 class="investRecord-list"
+                 v-if="icInvestRecord !== undefined && icInvestRecord !== null">
+              <div class="investRecord-item"
+                   v-for="item in icInvestRecord">
                 <h3>{{item.formatMobileOrName}}</h3>
                 <p>{{item.transactionTime}}</p>
                 <span class="money">¥{{item.formatInvestAmount}}</span>
                 <div class="surprise">
-                  <span class="surprise-item" v-if="item.firstInvestor==true"><i class="icon-reward18"></i>一马当先</span>
-                  <span class="surprise-item" v-if="item.mostInvestor==true"><i class="icon-reward68"></i>一鸣惊人</span>
-                  <span class="surprise-item" v-if="item.lastInvestor==true"><i class="icon-reward38"></i>一锤定音</span>
+                  <span class="surprise-item"
+                        v-if="item.firstInvestor==true"><i class="icon-reward18"></i>一马当先</span>
+                  <span class="surprise-item"
+                        v-if="item.mostInvestor==true"><i class="icon-reward68"></i>一鸣惊人</span>
+                  <span class="surprise-item"
+                        v-if="item.lastInvestor==true"><i class="icon-reward38"></i>一锤定音</span>
                 </div>
               </div>
             </div>
@@ -298,7 +478,7 @@
     data() {
       return {
         product: {
-          name:'长富理财',
+          name: '长富理财',
           formatScale2ExpectAnnualizedRate: '0.00',
           period: 0,
           formatPeriodType: '天',
@@ -356,14 +536,14 @@
       goBack() {
         this.$router.back()
       },
-      refreshPage(){
+      refreshPage() {
         this.$router.go(0)
       },
       toastNone() {
         this.$dialog.toast({mes: '<p style="font-size: .26rem">项目从募集开始到募集结束的这段时间。</p>', timeout: 3000});
       },
       getProduct() {
-        if(sessionStorage.getItem('appdown') === 'false'){
+        if (sessionStorage.getItem('appdown') === 'false') {
           this.isAppdown = true
         }
         //获取项目信息
@@ -651,7 +831,8 @@
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus"
+       rel="stylesheet/stylus">
   .product-header
     height: .9rem
     background-color #cf2d2d
@@ -686,6 +867,7 @@
         line-height .3rem
         vertical-align: middle
         white-space nowrap
+
   .btn-invest-surprise
     position: absolute
     right: .2rem
@@ -694,6 +876,7 @@
     height: 1.42rem
     background: url("../../../static/images/proudct/icon_surprise.png") no-repeat center;
     background-size: 100% 100%
+
   .product-detail
     .product-base
       position: relative
@@ -796,6 +979,7 @@
       right: 0
       top: 0
       text-align right
+
   .countdown-detail
     display inline-block
     color #d82d2d
@@ -816,6 +1000,7 @@
       border-radius .1rem
       font-size: .24rem
       vertical-align middle
+
   .invest-surprise
     position relative
     &.-appdown
@@ -877,6 +1062,7 @@
       bottom .1rem
       margin-left -.3rem
       color: rgba(255, 255, 255, 0.7)
+
   .identification
     position: absolute
     display inline-block
@@ -889,14 +1075,17 @@
     font-size .2rem
     background: #fafafa;
     border: 1px solid #eeeeee;
+
   .sms-codes
     position relative
+
   .btn-invest
     position: relative
     display: flex
     width: 100%
     padding: .15rem .3rem
     background-color: #fff
+
   .product-details
     position relative
     z-index 10000
@@ -910,6 +1099,7 @@
       top: 0
       left: 0
       right: 0
+
   .product-details-tab
     padding-top 1.75rem
     height 100%
@@ -934,6 +1124,7 @@
         overflow-y: auto
         overflow-x: hidden
         -webkit-overflow-scrolling: touch
+
   .invest-from
     position relative
     z-index 3100
@@ -959,6 +1150,7 @@
         color #d82d2d
       &.warning
         color #f2a10c
+
   //可用余额状态
   .balance-status
     position relative
@@ -973,6 +1165,7 @@
         color #d82d2d
       .icon-warn
         display inline-block
+
   .project-group
     padding: .3rem 0
     color #666
@@ -992,6 +1185,7 @@
       font-weight 300
       white-space normal
       word-wrap: break-word
+
   .project-image-list
     padding-top .3rem
     .project-image-item
@@ -1006,6 +1200,7 @@
           width 100%
           display block
           overflow hidden
+
   .investRecord-item
     padding: .3rem 0
     position: relative

@@ -1,30 +1,47 @@
 <template>
   <layout :showTabbar="true">
-    <slider :autoplay="slider.length > 1 ? 5000 : 0" v-if="slider != undefined">
-      <slider-item v-for="item in slider" :key="item.id">
+    <slider :autoplay="slider.length > 1 ? 5000 : 0"
+            v-if="slider != undefined">
+      <slider-item v-for="item in slider"
+                   :key="item.id">
         <a :href="item.href"><img :src="item.image"></a>
       </slider-item>
     </slider>
-    <rollnotice autoplay="5000" height="36" v-if="notice != undefined">
-      <rollnotice-item v-for="item in notice" :key="item.id">
+    <rollnotice autoplay="5000"
+                height="36"
+                v-if="notice != undefined">
+      <rollnotice-item v-for="item in notice"
+                       :key="item.id">
         <router-link :to="'/article/notice/'+item.id">{{item.title}}</router-link>
       </rollnotice-item>
-      <router-link to="/article/notice" class="notice-more" slot="right">更多</router-link>
+      <router-link to="/article/notice"
+                   class="notice-more"
+                   slot="right">更多
+      </router-link>
     </rollnotice>
 
-    <grids-group :rows="3" class="home-guide">
+    <grids-group :rows="3"
+                 class="home-guide">
       <grids-item link="/activity">
-        <i slot="icon" class="icon-guide -activity"></i> <span slot="text">活动中心</span>
+        <i slot="icon"
+           class="icon-guide -activity"></i> <span slot="text">活动中心</span>
       </grids-item>
       <grids-item link="/activity/depository_guide">
-        <i slot="icon" class="icon-guide -depository"></i> <span slot="text">银行存管</span>
+        <i slot="icon"
+           class="icon-guide -depository"></i> <span slot="text">银行存管</span>
       </grids-item>
       <grids-item link="/article/more">
-        <i slot="icon" class="icon-guide -about"></i> <span slot="text">长富理财</span>
+        <i slot="icon"
+           class="icon-guide -about"></i> <span slot="text">长富理财</span>
       </grids-item>
     </grids-group>
-    <router-link tag="div" to="/activity/newbiesem" class="home-novice-gift" v-if="isNoviceGift"></router-link>
-    <div class="hot-project" @click="openDetail()" v-if="project !== undefined">
+    <router-link tag="div"
+                 to="/activity/newbiesem"
+                 class="home-novice-gift"
+                 v-if="isNoviceGift"></router-link>
+    <div class="hot-project"
+         @click="openDetail()"
+         v-if="project !== undefined">
       <header class="header">
         <h3 v-if="project.novice == true">新手专享</h3>
         <h3 v-else>推荐项目</h3>
@@ -42,24 +59,48 @@
           <dt>投资期限</dt>
         </dl>
       </div>
-      <button class="btn btn-primary" v-if="project.status == 'wait_collection'">距离募集开始
-        <countdown :time="project.startTimeCountDown" timetype="second" class="home-countdown" format="<i>{%h}</i>:<i>{%m}</i>:<i>{%s}</i>" doneText="" :callback="refreshPage">
+      <button class="btn btn-primary"
+              v-if="project.status == 'wait_collection'">距离募集开始
+        <countdown :time="project.startTimeCountDown"
+                   timetype="second"
+                   class="home-countdown"
+                   format="<i>{%h}</i>:<i>{%m}</i>:<i>{%s}</i>"
+                   doneText=""
+                   :callback="refreshPage">
         </countdown>
       </button>
-      <button class="btn btn-primary" v-else-if="project.status == 'collection'">{{project.minInvestAmount}}元起投 立即投资</button>
-      <button class="btn btn-disabled" v-else-if="project.status == 'collection_end' || project.status == 'loan_finished' || project.status == 'failing'">已成立</button>
-      <button class="btn btn-disabled" v-else-if="project.status == 'payed'">已完结</button>
+      <button class="btn btn-primary"
+              v-else-if="project.status == 'collection'">{{project.minInvestAmount}}元起投 立即投资
+      </button>
+      <button class="btn btn-disabled"
+              v-else-if="project.status == 'collection_end' || project.status == 'loan_finished' || project.status == 'failing'">
+        已成立
+      </button>
+      <button class="btn btn-disabled"
+              v-else-if="project.status == 'payed'">已完结
+      </button>
     </div>
-    <div class="jxbank-tips"><i class="icon-shield"></i>账户资金安全由渤海银行存管账户保障</div>
+    <div class="jxbank-tips">
+      <i class="icon-shield"></i>账户资金安全由渤海银行存管账户保障
+    </div>
 
     <button class="btn">
-      <router-link to="/demo/demo" class="notice-more">测试页面</router-link>
+      <router-link to="/demo"
+                   class="notice-more">测试页面
+      </router-link>
+
+
+    </button>
+
+    <button class="btn btn-primary">
+      <router-link tag="div"
+                   :to="{ name: 'demo',params: { title: 'hellowrodl'}}">fuck demo param</router-link>
     </button>
   </layout>
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
         slider: {},
         notice: '',
@@ -67,11 +108,11 @@
         isNoviceGift: true
       }
     },
-    created(){
+    created() {
       this.getHome()
     },
     methods: {
-      getHome(){
+      getHome() {
         if (localStorage.getItem('token') !== null && localStorage.getItem('token') !== '') {
           this.isNoviceGift = false
         }
@@ -86,16 +127,17 @@
           }
         })
       },
-      openDetail(){
+      openDetail() {
         this.$router.push('/product/' + this.project.id)
       },
-      refreshPage(){
+      refreshPage() {
         this.$router.go(0)
       }
     }
   }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus"
+       rel="stylesheet/stylus">
 
   .rollnotice
     position relative
@@ -123,6 +165,7 @@
       top 0
       color #bbb
       line-height 36px
+
   .home-guide
     margin-bottom .2rem
     border-top 1px solid #eee
@@ -144,11 +187,13 @@
     & .grids-txt
       padding-top 0
       color #666
+
   .home-novice-gift
     width 100%
     height: 1.14rem
     background url("../../static/images/home/novice_gift.png") no-repeat center bottom
     background-size 7.5rem 1.14rem
+
   .hot-project
     padding: .3rem .3rem .5rem
     text-align: center;
@@ -183,6 +228,7 @@
       padding 0
       height .9rem
       font-size .34rem
+
   //倒计时
   .home-countdown
     display inline-block
@@ -203,6 +249,7 @@
       font-size: .24rem
       vertical-align middle
       border-radius .1rem
+
   .jxbank-tips
     padding: .3rem .3rem .1rem
     text-align: center;
@@ -210,10 +257,12 @@
     & i
       color #fbc9c9
       margin-right .1rem
+
   @media screen and (max-width: 340px)
     .home-guide
       .grids-item
         padding .15rem
+
     .hot-project
       .props
         padding .3rem 0
